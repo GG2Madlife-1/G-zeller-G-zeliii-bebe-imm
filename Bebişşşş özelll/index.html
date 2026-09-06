@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Güzeller Güzeli Bebeğimmeee Küçük Bir Anıı</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* GENEL AYARLAR */
+        body, html {
+            margin: 0; padding: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* YUKARIDAN AŞAĞIYA GEÇİŞ (PEMBE -> YILDIZLAR -> AURORA) */
+        .page-wrapper {
+            position: relative;
+            width: 100%;
+            background: linear-gradient(to bottom, 
+                #f7e8e9 0%,       
+                #e5c1c5 15%,      
+                #6b5b7b 30%,      
+                #2b3a55 50%,      
+                #0f172a 75%,      
+                #051319 100%      
+            );
+            z-index: 1;
+        }
+
+        .stars-bg {
+            position: absolute; top: 25%; bottom: 0; left: 0; right: 0;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0));
+            background-size: 200px 200px; opacity: 0.6; z-index: 2; pointer-events: none;
+        }
+
+        .aurora-bg {
+            position: absolute; bottom: 0; left: 0; right: 0; height: 40%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 255, 153, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 90%, rgba(100, 50, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 100%, rgba(0, 150, 255, 0.15) 0%, transparent 50%);
+            z-index: 3; pointer-events: none;
+        }
+
+        .hearts-bg { position: absolute; top: 0; left: 0; width: 100%; height: 25%; pointer-events: none; z-index: 2; overflow: hidden; }
+        .heart { position: absolute; font-size: 20px; opacity: 0.6; animation: floatUp 8s linear infinite; }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            20% { opacity: 0.5; }
+            80% { opacity: 0.5; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        .container {
+            max-width: 1000px; margin: 0 auto; padding: 60px 20px;
+            text-align: center; position: relative; z-index: 10;
+        }
+        
+        .title { font-size: 2.8em; color: #d48a94; margin-bottom: 10px; font-weight: 300; }
+        .subtitle { font-size: 1.2em; color: #8c7373; margin-bottom: 50px; font-weight: 300; }
+
+        .music-btn {
+            background-color: #ffc4cf; color: #5a4a4a; border: none;
+            padding: 12px 25px; font-size: 1.1em; border-radius: 30px;
+            cursor: pointer; box-shadow: 0 4px 10px rgba(212, 138, 148, 0.3);
+            margin-bottom: 50px; transition: all 0.3s ease;
+        }
+        .music-btn:active { transform: scale(0.95); }
+
+        .chemistry-section { display: flex; justify-content: center; gap: 20px; margin-bottom: 120px; }
+        .element {
+            width: 90px; height: 90px; background: rgba(255,255,255,0.8); border: 2px solid #d48a94; 
+            border-radius: 8px; display: flex; flex-direction: column; justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .atomic-number { text-align: left; padding-left: 8px; font-size: 0.8em; color: #8c7373; margin-top: -5px;}
+        .symbol { font-size: 2.2em; font-weight: bold; color: #d63031; line-height: 1; }
+        .element-name { font-size: 0.8em; color: #5a4a4a; margin-top: 5px;}
+        .chemistry-text { font-family: 'Caveat', cursive; font-size: 1.8em; color: #d48a94; display: flex; align-items: center; }
+
+        /* =========================================
+           ZAMAN TÜNELİ - RASTGELE DAĞINIK DÜZEN
+           ========================================= */
+        .timeline {
+            position: relative; max-width: 900px; margin: 0 auto 150px auto; width: 100%;
+        }
+        
+        /* Orta Çizgi (Her ekran boyutunda ortada kalacak) */
+        .timeline::before {
+            content: ''; position: absolute; top: 0; bottom: 0; left: 50%;
+            width: 4px; border-radius: 4px; transform: translateX(-50%);
+            background: linear-gradient(to bottom, #d48a94 0%, #a46d8c 30%, #3e5a80 60%, #00ff9d 100%);
+            box-shadow: 0 0 10px rgba(0,255,153,0.2);
+        }
+
+        .timeline-item { display: flex; width: 100%; margin-bottom: 100px; position: relative; }
+        
+        /* Tek sayılar (1,3,5) SOLDA, Çift sayılar (2,4,6) SAĞDA */
+        .timeline-item:nth-child(odd) { justify-content: flex-end; padding-right: 50%; box-sizing: border-box; }
+        .timeline-item:nth-child(even) { justify-content: flex-start; padding-left: 50%; box-sizing: border-box; }
+        
+        /* Çizgideki Beyaz Noktalar */
+        .timeline-item::after {
+            content: ''; position: absolute; width: 16px; height: 16px;
+            background: white; border-radius: 50%; top: 40px; left: 50%;
+            transform: translateX(-50%); box-shadow: 0 0 10px rgba(255,255,255,0.8); z-index: 15;
+        }
+
+        /* Fotoğraf Kartı (Polaroid) */
+        .timeline-polaroid {
+            background: white; padding: 15px 15px 25px 15px; border-radius: 4px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); width: 250px; text-align: center; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; z-index: 20;
+        }
+        
+        /* FOTOĞRAFLARI ÇİZGİYE GÖRE RASTGELE UZAKLIKLARA DAĞITMA EFEKTİ */
+        /* 1. Sol, uzak */
+        .timeline-item:nth-child(10n+1) .timeline-polaroid { margin-right: 50px; transform: rotate(-5deg); }
+        /* 2. Sağ, çizgiye çok yakın */
+        .timeline-item:nth-child(10n+2) .timeline-polaroid { margin-left: 10px; transform: rotate(6deg); }
+        /* 3. Sol, çok uzak */
+        .timeline-item:nth-child(10n+3) .timeline-polaroid { margin-right: 90px; transform: rotate(-3deg); }
+        /* 4. Sağ, uzak */
+        .timeline-item:nth-child(10n+4) .timeline-polaroid { margin-left: 60px; transform: rotate(4deg); }
+        /* 5. Sol, çizginin hafif üstüne taşar */
+        .timeline-item:nth-child(10n+5) .timeline-polaroid { margin-right: -15px; transform: rotate(-7deg); }
+        /* 6. Sağ, orta uzaklık */
+        .timeline-item:nth-child(10n+6) .timeline-polaroid { margin-left: 40px; transform: rotate(2deg); }
+        /* 7. Sol, orta uzaklık */
+        .timeline-item:nth-child(10n+7) .timeline-polaroid { margin-right: 30px; transform: rotate(-4deg); }
+        /* 8. Sağ, çizginin hafif üstüne taşar */
+        .timeline-item:nth-child(10n+8) .timeline-polaroid { margin-left: -10px; transform: rotate(5deg); }
+        /* 9. Sol, aşırı uzak */
+        .timeline-item:nth-child(10n+9) .timeline-polaroid { margin-right: 110px; transform: rotate(-6deg); }
+        /* 10. Sağ, çok uzak */
+        .timeline-item:nth-child(10n+10) .timeline-polaroid { margin-left: 80px; transform: rotate(3deg); }
+        
+        /* Dokunulduğunda/Üzerine gelindiğinde fotoğrafın düzelip büyümesi */
+        .timeline-polaroid:hover, .timeline-polaroid:active { 
+            transform: rotate(0deg) scale(1.12) !important; 
+            z-index: 30; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+        
+        .timeline-polaroid img { width: 100%; height: 250px; object-fit: cover; border-radius: 2px; margin-bottom: 15px; }
+        .note { font-family: 'Caveat', cursive; font-size: 1.7em; color: #4a4a4a; margin: 0; line-height: 1.2; font-weight: bold; }
+
+        /* TELEFON EKRANLARI İÇİN MİNİ DÜZENLEME (Çizgi ortada kalır, fotolar ekrandan taşmaz) */
+        @media (max-width: 600px) {
+            .timeline-polaroid { width: 140px; padding: 10px 10px 15px 10px; }
+            .timeline-polaroid img { height: 140px; }
+            .timeline-item { margin-bottom: 60px; }
+            .timeline-item::after { top: 20px; width: 12px; height: 12px; }
+            
+            /* Mobilde taşmaları önlemek için uzaklıkları küçülttük */
+            .timeline-item:nth-child(10n+1) .timeline-polaroid { margin-right: 15px; }
+            .timeline-item:nth-child(10n+2) .timeline-polaroid { margin-left: 5px; }
+            .timeline-item:nth-child(10n+3) .timeline-polaroid { margin-right: 25px; }
+            .timeline-item:nth-child(10n+4) .timeline-polaroid { margin-left: 20px; }
+            .timeline-item:nth-child(10n+5) .timeline-polaroid { margin-right: -5px; }
+            .timeline-item:nth-child(10n+6) .timeline-polaroid { margin-left: 15px; }
+            .timeline-item:nth-child(10n+7) .timeline-polaroid { margin-right: 10px; }
+            .timeline-item:nth-child(10n+8) .timeline-polaroid { margin-left: -5px; }
+            .timeline-item:nth-child(10n+9) .timeline-polaroid { margin-right: 30px; }
+            .timeline-item:nth-child(10n+10) .timeline-polaroid { margin-left: 25px; }
+        }
+
+        /* 10 ADET KART VE MEKTUP */
+        .reasons-title { font-size: 2.2em; color: #fff; margin-bottom: 40px; font-weight: 300; text-shadow: 0 0 15px rgba(255,255,255,0.3); }
+        .cards-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-bottom: 100px; }
+        .flip-card { background-color: transparent; width: 200px; height: 160px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; }
+        .flip-card:active .flip-card-inner, .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; display: flex; align-items: center; justify-content: center; padding: 15px; box-sizing: border-box; }
+        .flip-card-front { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.3); color: #fff; font-size: 1.2em; backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .flip-card-back { background-color: #fff; color: #111; transform: rotateY(180deg); font-family: 'Caveat', cursive; font-size: 1.6em; line-height: 1.2; font-weight: bold; box-shadow: 0 0 20px rgba(0,255,153,0.2); }
+        .message { line-height: 1.8; font-size: 1.2em; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255,255,255,0.2); padding: 50px 30px; border-radius: 15px; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; color: #eee; }
+    </style>
+</head>
+<body>
+
+    <div class="page-wrapper">
+        <div class="stars-bg"></div>
+        <div class="aurora-bg"></div>
+        
+        <div class="hearts-bg">
+            <div class="heart" style="left: 10%; animation-duration: 7s; animation-delay: 0s;">🤍</div>
+            <div class="heart" style="left: 40%; animation-duration: 9s; animation-delay: 1.5s;">💖</div>
+            <div class="heart" style="left: 70%; animation-duration: 6s; animation-delay: 0.5s;">🤍</div>
+            <div class="heart" style="left: 85%; animation-duration: 10s; animation-delay: 2s;">💖</div>
+        </div>
+
+        <audio id="bgMusic" loop>
+            <source src="muzik.mp3" type="audio/mpeg">
+        </audio>
+
+        <div class="container">
+            <h1 class="title">Bizim Hikayemiz</h1>
+            <p class="subtitle">Aşağıya doğru kaydır ve yolculuğumuza başla...</p>
+
+            <button class="music-btn" onclick="playMusic()">🎵 Şarkımızı Başlat</button>
+
+            <!-- Kimya Bölümü -->
+            <div class="chemistry-section">
+                <div class="element">
+                    <div class="atomic-number">16</div>
+                    <div class="symbol">A</div>
+                    <div class="element-name">Ayşe</div>
+                </div>
+                <div class="chemistry-text">+</div>
+                <div class="element">
+                    <div class="atomic-number">6</div>
+                    <div class="symbol">G</div>
+                    <div class="element-name">Görkem</div>
+                </div>
+                <div class="chemistry-text">= 💖💖💖💖💖</div>
+            </div>
+
+            <!-- ZAMAN TÜNELİ (Tam ortada çizgi, dağınık polaroidler) -->
+            <!-- Sadece div kopyala-yapıştır yapman yeterli, CSS sağ-sol ayrımını otomatik yapıyor -->
+            <div class="timeline">
+                <div class="timeline-item"><div class="timeline-polaroid"><img src="foto1.jpg" alt="Anı"><p class="note">Bu fotoğrafa her baktığımda hayatta ne kadar şanslı olduğumu çünkü huzurumun neşemin parıl parıl güldüğünü ve mutluluğunu görüyorum</p></div></div>
+                <div class="timeline-item"><div class="timeline-polaroid"><img src="foto2.jpg" alt="Anı"><p class="note">Her zaman en keyifli ve en eğlenceli anlarımın senin sayende olmasından dolayı çok mutluyum ve çok teşekkür ederim.💖💖</p></div></div>
+                <div class="timeline-item"><div class="timeline-polaroid"><img src="foto3.jpg" alt="Anı"><p class="note">Bazen hayatta talihsizliklerde başımıza gelsede birlikteyken geçirdiğimiz vakit bütün zorlukların hepsini unutturuyor bana bebişimm</p></div></div>
+                <div class="timeline-item"><div class="timeline-polaroid"><img src="foto4.jpg" alt="Anı"><p class="note">İnsanlar çalıştığı zaman sıkılır ama seninle çalışmak dünyanın en keyifli etkinliklerinden sadece bir tanesi</p></div></div>
+                <div class="timeline-item"><div class="timeline-polaroid"><img src="foto5.jpg" alt="Anı"><p class="note">O gün bana içimdeki kız çocuğunu çok mutlu ediyorsun dediğin zaman gözlerim dolmuştu içindeki kız çocuğunun hep mutlu olmasını istiyorumm.</p></div></div>
+                <div class="timeline-item"><div class="timeline-polaroid"><img src="foto6.jpg" alt="Anı"><p class="note">Seninle geçen her gün içimdeki çocuk çok mutlu oluyor ve her gün yeni bir aktivite yapmak istiyor tekrardan resimler çizmek şarkılar söylemek istiyor sayendee</p></div></div>
+                <div class="timeline-item"><div class="timeline-polaroid"><img src="foto7.jpg" alt="Anı"><p class="note">Bu hayatta her şeyi ilk defa seninlee öğrendiğimm içinn çokk mutluu ve minnettarımm tatlıı bebişimmm</p></div></div>
+                <div class="timeline-item"><div class="timeline-polaroid"><img src="foto8.jpg" alt="Anı"><p class="note">O gün sadecee bir konseree gitmedikk o gün birlikte çokça eğlendiğimiz düşününce bile mutlu olduğum anılar biriktirip dans ettiğimiz şarkı söylediğimiz eşsiz bir gündü</p></div></div>
+                <div class="timeline-item"><div class="timeline-polaroid"><img src="foto9.jpg" alt="Anı"><p class="note">Şeeyyy bazendee sadecee slayyyy 💅💅💅💅</p></div></div>
+                <div class="timeline-item"><div class="timeline-polaroid"><img src="foto10.jpg" alt="Anı"><p class="note">Kollarınlaa sadecee beni sarmıyorsunn hemm kalbimii dinlendiriyorsunn hemm huzurr ve mutlulukk aşılıyorsunnn</p></div></div>
+                <div class="timeline-item"><div class="timeline-polaroid"><img src="foto11.jpg" alt="Anı"><p class="note">Bu resimee bakıncaa içim hep bir huzur ve mutluluklaa kaplanıyor çünküü gülüşünn her zaman kalbimii sıcacıkk yapıyorrr</p></div></div>
+                <div class="timeline-item"><div class="timeline-polaroid"><img src="foto12.jpg" alt="Anı"><p class="note">Buz pateniii yaparkenkii o heyecaann o sohbet etmeyee çalışmalarımıızz kameralarınn önündenn geçmemiizz çokk keyifliydii çookk sayendee hepp çocukk kalıyorummm</p></div></div>
+                <div class="timeline-item"><div class="timeline-polaroid"><img src="foto13.jpg" alt="Anı"><p class="note">Ben bu matchayı tekteee içerimmm (kesin içtimm) çokk eğlenceliydii yaa birbirimizee lego hediyee etmekk yapmakk tekrarr yapalımm olurr muu</p></div></div>
+                <div class="timeline-item"><div class="timeline-polaroid"><img src="foto14.jpg" alt="Anı"><p class="note">O gün kollarımdaa uyuyaakaldığınn anıı hiç unutmuyorummm bebeklerr seninn gibii uyuyorduuu</p></div></div>
+                <div class="timeline-item"><div class="timeline-polaroid"><img src="foto15.jpg" alt="Anı"><p class="note">Her geri gelişindee içimdekii çocukk tekrarr tekrarrr doğuyoorr ve çookk mutluu oluyorr çoookkk</p></div></div>
+                <div class="timeline-item"><div class="timeline-polaroid"><img src="foto16.jpg" alt="Anı"><p class="note">O ilk çıktı aldığımıızzz kuzucuukk vee bebecikk imzasıı olmazsaa olmaaazz</p></div></div>
+                <div class="timeline-item"><div class="timeline-polaroid"><img src="foto17.jpg" alt="Anı"><p class="note">Aradaa mesafelerdeee olsaa minicikkk bebeğimmm sanaa sürpriizlerr yapmayıı hepp istiyorummm heppp</p></div></div>
+                <div class="timeline-item"><div class="timeline-polaroid"><img src="foto18.jpg" alt="Anı"><p class="note">O kadarrr tatlııı vee o kadarr güzelll uyuyorsunnn kii bebeklerrr görsee kıskanırrr yaa çookk tatlısınn çoookkk</p></div></div>
+                <div class="timeline-item"><div class="timeline-polaroid"><img src="foto19.jpg" alt="Anı"><p class="note">Şeyyy kucucukkk bebeğimii uyurkenn eklediysemm kendimidee eklememm lazımm diyee düşündümmm</p></div></div>
+                <div class="timeline-item"><div class="timeline-polaroid"><img src="foto20.jpg" alt="Anı"><p class="note">Tekrardannn boll boll türk kahvesii içelimmmmm dahaa sanaa türk kahvesiii yapıcamm hemdee boll köpüklüüüü</p></div></div>
+            </div>
+
+            <!-- ALT KISIM -->
+            <h2 class="reasons-title">Seni Seviyorum Çünkü...</h2>
+            <div class="cards-container">
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front">Yıldıza Dokun ✦</div><div class="flip-card-back">Kalbim seninleyken her zaman küçük bir çocuk oluyor</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front">Yıldıza Dokun ✦</div><div class="flip-card-back">Sesinin duymak her zaman ruhuma iyi geliyor</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front">Yıldıza Dokun ✦</div><div class="flip-card-back">Bana yaşamayı mutlu olmayı öğretiyorsun</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front">Yıldıza Dokun ✦</div><div class="flip-card-back">Gülüşün yıldızların parlaklığından katbekat daha parlak</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front">Yıldıza Dokun ✦</div><div class="flip-card-back">Her zamann çok düşüncelisinn çok sevgii dolusunn</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front">Yıldıza Dokun ✦</div><div class="flip-card-back">Her şeyin ilkisin, ilk şarkım, ilk heyecanım ve nicesi</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front">Yıldıza Dokun ✦</div><div class="flip-card-back">En zor anlarda bile hep kalbime ışık saçıyorsun</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front">Yıldıza Dokun ✦</div><div class="flip-card-back">Bebek olmanıı çocuk olmanı çok seviyorum</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front">Yıldıza Dokun ✦</div><div class="flip-card-back">Sen benim her şeyimsinn </div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front">Yıldıza Dokun ✦</div><div class="flip-card-back">Bakışlarınla hayatıma renkler katıyorsun</div></div></div>
+            </div>
+
+            <!-- Son Mektup -->
+            <div class="message">
+                <h2 style="margin-top:0; color:#fff; font-weight:300;">Benimmm güzellerrr güzelii prensesimmm,</h2>
+                <p>Seni her şeyden çoooookk amaa çooooookk seviyorummm her zaman birlikte mutlu huzurlu olalım eğlenelim istiyorum her koşulda her zorlukta yanında olup yükünü azaltmak istiyorum sen benim ruhuma kalbime iyi geliyorsun bende her zaman elinden tutup senin için ışık olmak kalbindeki neşe olmak istiyorum birlikte hep huzur ve mutluluk içinde olalım istiyorum çünkü sen bu evrende her şeyin en güzelini en sevgi dolu halini hakediyorsun. Sevgiler Koca Bebekkkkk 💖💖💖💖💖</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function playMusic() {
+            var audio = document.getElementById("bgMusic");
+            audio.volume = 0.5;
+            audio.play();
+            document.querySelector('.music-btn').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
